@@ -4,15 +4,15 @@ This repository contains several (increasingly complex) Tamarin models of a simp
 
 ## Initial Protocol
 
-Your goal is to model a simple protocol (which has several flaws) in Tamarin and then successively improve the protocol to deal with the flaws. The initial protocol is as follows:
+Your goal is to model a simple protocol (which has several flaws) in Tamarin and then step-by-step improve the protocol to deal with its flaws. The initial protocol is as follows:
 
 There are two parties, Alice and Bob, who want to compute a session key so they can communicate with each other secretly. To do so, they proceed as follows:
 
 1. Alice computes a nonce and sends it to Bob (A -> B: ANonce)
 2. When Bob receives Alice's nonce, he computes his own nonce and sends it to Alice. (B -> A: BNonce)
 3. When Alice receives Bob's nonce, she does two things:
-	(i) She installs a session key SK, which she computes from ANonce and BNonce by applying a key derivation function to them (i.e., SK = kdf(ANonce, BNonce)). 
-	(ii) Once the session key is installed, she sends a message with the string "ACK" to Bob (A -> B: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully.
+	3.1 She installs a session key SK, which she computes from ANonce and BNonce by applying a key derivation function to them (i.e., SK = kdf(ANonce, BNonce)). 
+	3.2 Once the session key is installed, she sends a message with the string "ACK" to Bob (A -> B: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully.
 4. When Bob receives the "ACK" message, he also computes and installs the session key SK = kdf(ANonce, BNonce) and switches to a 'DONE' state.
 
 ### Questions
