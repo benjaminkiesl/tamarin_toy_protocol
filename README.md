@@ -49,7 +49,7 @@ Can you now formulate and prove the lemma that says "When Bob reaches the 'DONE'
 
 ## Extended Protocol: Resending Messages
 
-In our current protocol, Alice and Bob will only send their nonces (and the "ACK" message) once. This could cause problems when messages get lost. To deal with this, we allow Alice to send her nonce again in case she hasn't received a response from Bob.
+In our current protocol, Alice and Bob will only send their nonces (and the "ACK" message) once. This could cause problems when messages get lost. To deal with this, we allow Alice to send her nonce again (arbitrarily many times) in case she hasn't received a response from Bob.
 
 ### Questions
 
