@@ -43,7 +43,7 @@ In the previous version of our protocol, the problem was that an adversary could
 
 ### Questions
 
-Can you incorporate this MAC mechanism into the Tamarin model?
+Can you incorporate this message-authentication mechanism into the Tamarin model?
 
 Can you now formulate and prove the lemma that says "When Bob reaches the 'DONE' state, Alice must have reached the 'DONE' state too (even before Bob)"?
 
