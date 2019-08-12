@@ -1,0 +1,72 @@
+// This is a toy protocol used to play around
+
+theory toy_protocol
+begin
+
+functions: KDF/1
+builtins: symmetric-encryption
+
+// BEGIN Rules
+
+rule Init:
+    [ Fr(~aID), Fr(~bID) ]
+    --[ Init(~aID, ~bID) ]->
+    [ AState(~aID, 'INIT', 'EMPTY_STATE')
+    , BState(~bID, 'INIT', 'EMPTY_STATE') ]
+
+rule ASendNonce [color=#ffdea6]:
+    [ AState(~aID, 'INIT', 'EMPTY_STATE')
+    , Fr(~ANonce) ]
+    --[ ASendsNonce(~aID, ~ANonce) ]->
+    [ AState(~aID, 'SENT_NONCE', ~ANonce)
+    , Out(~ANonce) ]
+
+rule AReceiveNonceInstallKey [color=#ffdea6]:
+    let 
+        SK = KDF(~ANonce, BNonce)
+    in
+    [ AState(~aID, 'SENT_NONCE', ~ANonce)
+    , In(BNonce) ]
+    --[ AInstallsKey(~aID, ~ANonce, BNonce, SK) ]->
+    [ AState(~aID, 'INSTALLED_KEY', <~ANonce, BNonce, SK>)
+    , Out('ACK') ]
+
+rule BReceiveNonceSendNonce [color=#b5f5f7]:
+    [ BState(~bID, 'INIT', 'EMPTY_STATE')
+    , Fr(~BNonce)
+    , In(ANonce) ]
+    --[ BReceivesNonceSendsNonce(~bID, ANonce, ~BNonce) ]->
+    [ BState(~bID, 'SENT_NONCE', <ANonce, ~BNonce>)
+    , Out(~BNonce) ]
+
+rule BReceiveAckInstallKey [color=#b5f5f7]:
+    let
+        SK = KDF(ANonce, ~BNonce)
+    in
+    [ BState(~bID, 'SENT_NONCE', <ANonce, ~BNonce>)
+    , In('ACK') ]
+    --[ BInstallsKey(~bID, ANonce, ~BNonce, SK) ]->
+    [ BState(~bID, 'INSTALLED_KEY', <ANonce, ~BNonce, SK>) ]
+
+// END Rules
+
+// BEGIN Statements
+
+lemma successful_run: exists-trace
+    "Ex bID aID ANonce BNonce SK #i #j.
+        AInstallsKey(bID, ANonce, BNonce, SK) @ i &
+        BInstallsKey(aID, ANonce, BNonce, SK) @ j"
+
+lemma sk_secret_a:
+    "All aID ANonce BNonce SK #i. 
+        AInstallsKey(aID, ANonce, BNonce, SK) @ i 
+            ==> not(Ex #j. K(SK) @ j)"
+
+lemma sk_secret_b:
+    "All bID ANonce BNonce SK #i. 
+        BInstallsKey(bID, ANonce, BNonce, SK) @ i 
+            ==> not(Ex #j. K(SK) @ j)"
+
+// END Statements
+
+end

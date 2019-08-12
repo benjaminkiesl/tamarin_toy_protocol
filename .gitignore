@@ -1,0 +1,6 @@
+wpa2_four_way_handshake.spthy
+wpa2_four_way_handshake_no_key_reinstallation.spthy
+
+*.swp
+*.aes
+*.dropbox.attr

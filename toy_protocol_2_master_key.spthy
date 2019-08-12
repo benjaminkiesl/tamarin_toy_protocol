@@ -1,0 +1,78 @@
+// This is a toy protocol used to play around
+
+theory toy_protocol
+begin
+
+functions: KDF/1
+builtins: symmetric-encryption
+
+// BEGIN Rules
+
+rule Init:
+    [ Fr(~MK), Fr(~aID), Fr(~bID) ]
+    --[ Init(~MK, ~aID, ~bID) ]->
+    [ AState(~aID, 'INIT', ~MK)
+    , BState(~bID, 'INIT', ~MK) ]
+
+rule ASendNonce [color=#ffdea6]:
+    [ AState(~aID, 'INIT', ~MK)
+    , Fr(~ANonce) ]
+    --[ ASendsNonce(~aID, ~MK, ~ANonce) ]->
+    [ AState(~aID, 'SENT_NONCE', <~MK, ~ANonce>)
+    , Out(~ANonce) ]
+
+rule AReceiveNonceInstallKey [color=#ffdea6]:
+    let 
+        SK = KDF(~MK, ~ANonce, BNonce)
+    in
+    [ AState(~aID, 'SENT_NONCE', <~MK, ~ANonce>)
+    , In(BNonce) ]
+    --[ AInstallsKey(~aID, ~MK, ~ANonce, BNonce, SK) ]->
+    [ AState(~aID, 'INSTALLED_KEY', <~MK, ~ANonce, BNonce, SK>)
+    , Out('ACK') ]
+
+rule BReceiveNonceSendNonce [color=#b5f5f7]:
+    [ BState(~bID, 'INIT', ~MK)
+    , Fr(~BNonce)
+    , In(ANonce) ]
+    --[ BReceivesNonceSendsNonce(~bID, ~MK, ANonce, ~BNonce) ]->
+    [ BState(~bID, 'SENT_NONCE', <~MK, ANonce, ~BNonce>)
+    , Out(~BNonce) ]
+
+rule BReceiveAckInstallKey [color=#b5f5f7]:
+    let
+        SK = KDF(~MK, ANonce, ~BNonce)
+    in
+    [ BState(~bID, 'SENT_NONCE', <~MK, ANonce, ~BNonce>)
+    , In('ACK') ]
+    --[ BInstallsKey(~bID, ~MK, ANonce, ~BNonce, SK) ]->
+    [ BState(~bID, 'INSTALLED_KEY', <~MK, ANonce, ~BNonce, SK>) ]
+
+// END Rules
+
+// BEGIN Statements
+
+lemma successful_run: exists-trace
+    "Ex bID aID MK ANonce BNonce SK #i #j.
+        AInstallsKey(bID, MK, ANonce, BNonce, SK) @ i &
+        BInstallsKey(aID, MK, ANonce, BNonce, SK) @ j"
+
+lemma sk_secret_a:
+    "All aID MK ANonce BNonce SK #i. 
+        AInstallsKey(aID, MK, ANonce, BNonce, SK) @ i 
+            ==> not(Ex #j. K(SK) @ j)"
+
+lemma sk_secret_b:
+    "All bID MK ANonce BNonce SK #i. 
+        BInstallsKey(bID, MK, ANonce, BNonce, SK) @ i 
+            ==> not(Ex #j. K(SK) @ j)"
+
+lemma if_b_finishes_a_has_finished_too:
+    "All bID MK ANonce BNonce SK #i.
+        BInstallsKey(bID, MK, ANonce, BNonce, SK) @ i 
+            ==> (Ex aID #j. AInstallsKey(aID, MK, ANonce, BNonce, SK) @ j
+                 & j < i)"
+
+// END Statements
+
+end
