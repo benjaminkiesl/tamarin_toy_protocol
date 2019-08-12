@@ -1,6 +1,6 @@
 # Toy Protocol
 
-This repository contains several (increasingly complex) Tamarin models of a simple protocol (basically a simplified version of the WPA2 four-way handshake).
+This repository contains several (increasingly complex) Tamarin models of a simple protocol (basically a simplified version of the WPA2 four-way handshake). These models are possible solutions to the following challenge:
 
 ## Initial Protocol
 
