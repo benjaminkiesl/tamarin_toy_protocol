@@ -35,6 +35,8 @@ Can you again formulate a lemma that says that both Alice and Bob can reach the 
 
 Can you again formulate a lemma that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this lemma?
 
+Can you also formulate and prove a lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"?
+
 Is it possible that Bob reaches the 'DONE' state but Alice does not? (Maybe Tamarin can help with answering this question!?) If so, why is that? What could we do to deal with this?
 
 ## Extension: Message Authentication Code
@@ -55,4 +57,4 @@ In our current protocol, Alice and Bob will only send their nonces (and the "ACK
 
 Can you incorporate this into the Tamarin model?
 
-What happens now if you want to prove the lemma that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Why might Tamarin fail to terminate? How could you help Tamarin prove the lemma?
+What happens now if you want to prove the lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"? Why might Tamarin fail to terminate? How could you help Tamarin prove the lemma?
