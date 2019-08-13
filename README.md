@@ -39,7 +39,7 @@ Is it possible that Bob reaches the 'DONE' state but Alice does not? (Maybe Tama
 
 ## Extension: Message Authentication Code
 
-In the previous version of our protocol, the problem was that an adversary could send the "ACK" message to Bob and thus trick Bob into believing that Alice has successfully installed the session key. To avoid this, we can require Alice to compute a message authentication code (with the session key SK) for the "ACK" message and it include it in the message. When Bob receives the message, he then first verifies the message authentication code before switching to the 'DONE' state. This should prevent an adversary from forging the "ACK" message.
+In the previous version of our protocol, the problem was that an adversary could send the "ACK" message to Bob and thus trick Bob into believing that Alice has successfully installed the session key. To avoid this, we can require Alice to compute a message authentication code (with the session key SK) for the "ACK" message and send this MAC together with the message. When Bob receives the message and the MAC, he then first verifies the MAC before switching to the 'DONE' state. This should prevent an adversary from forging the "ACK" message.
 
 ### Questions
 
