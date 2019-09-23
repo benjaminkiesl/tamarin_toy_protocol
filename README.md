@@ -23,7 +23,7 @@ Once you have a model of the protocol, can you formulate a lemma ("exists-trace"
 
 Can you formulate a lemma in Tamarin that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this statement? If not, what's the problem?
 
-Possible solution: toy_protocol_1.spthy
+Possible solution: [toy_protocol_1.spthy](toy_protocol_1.spthy)
 
 ## Extension: Preshared Master Key
 
@@ -41,7 +41,7 @@ Can you also formulate and prove a lemma that says "When Alice is in the 'DONE' 
 
 Is it possible that Bob reaches the 'DONE' state but Alice does not? (Maybe Tamarin can help with answering this question!?) If so, why is that? What could we do to deal with this?
 
-Possible solution: toy_protocol_2_master_key.spthy
+Possible solution: [toy_protocol_2_master_key.spthy](toy_protocol_2_master_key.spthy)
 
 ## Extension: Message Authentication Code
 
@@ -53,7 +53,7 @@ Can you incorporate this message-authentication mechanism into the Tamarin model
 
 Can you now formulate and prove the lemma that says "When Bob reaches the 'DONE' state, Alice must have reached the 'DONE' state too (even before Bob)"?
 
-Possible solution: toy_protocol_3_mac.spthy
+Possible solution: [toy_protocol_3_mac.spthy](toy_protocol_3_mac.spthy)
 
 ## Extended Protocol: Resending Messages
 
@@ -65,4 +65,4 @@ Can you incorporate this into the Tamarin model?
 
 What happens now if you want to prove the lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"? Why might Tamarin fail to terminate? How could you help Tamarin prove the lemma?
 
-Possible solution: toy_protocol_4_resend_anonce.spthy
+Possible solution: [toy_protocol_4_resend_anonce.spthy](toy_protocol_4_resend_anonce.spthy)
