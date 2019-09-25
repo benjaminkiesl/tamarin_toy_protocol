@@ -1,6 +1,6 @@
 # Tamarin Toy Protocol
 
-This repository contains a few increasingly complex exercises that should help you get familiar with [Tamarin](https://tamarin-prover.github.io/), a verification tool for security protocols. The protocol you are going to model over the course of these exercises is basically a simplified version of the WPA2 four-way handshake. Along with the exercises, the repository contains possible solutions, but note that those solutions are just suggestions and that there are several ways to model one and the same protocol in Tamarin. Note that the exercises here require a basic understanding of Tamarin, which you can obtain by reading the [Tamarin Manual](https://tamarin-prover.github.io/manual/index.html).
+This repository contains a few increasingly complex exercises that should help you get familiar with [Tamarin](https://tamarin-prover.github.io/), a verification tool for security protocols. The protocol you are going to model over the course of these exercises is basically a simplified version of the WPA2 four-way handshake. Along with the exercises, the repository contains possible solutions, but those solutions are just suggestions and there are several ways to model one and the same protocol in Tamarin. Note that the exercises here require a basic understanding of Tamarin, which you can obtain by reading the [Tamarin Manual](https://tamarin-prover.github.io/manual/index.html).
 
 ## Initial Protocol
 
