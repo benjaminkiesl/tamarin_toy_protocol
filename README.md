@@ -6,7 +6,7 @@ This repository contains a few increasingly complex exercises that should help y
 
 Your goal is to model a simple protocol (which has several flaws) in Tamarin and then step-by-step improve the protocol to deal with its flaws. The initial protocol is as follows:
 
-There are two parties, Alice and Bob, who want to compute a session key so they can communicate with each other secretly. To do so, they proceed as follows:
+There are two parties, Alice and Bob, who want to establish a session key in order to communicate with each other secretly. To do so, they proceed as follows:
 
 1. Alice computes a nonce and sends it to Bob (A -> B: ANonce)
 2. When Bob receives Alice's nonce, he computes his own nonce and sends it to Alice. (B -> A: BNonce)
