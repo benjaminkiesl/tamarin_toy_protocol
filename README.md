@@ -27,7 +27,7 @@ Possible solution: [toy_protocol_1.spthy](toy_protocol_1.spthy)
 
 ## Extension: Preshared Master Key
 
-In the above protocol, one problem was that a person-in-the-middle could just obtain the ANonce and the BNonce and then compute the session key herself. We could mitigate this problem by requiring that Alice and Bob have shared a secret (a permanent "master key") before they run the protocol (we just assume there is some master key that has been shared). When they compute the session key, they then incorporate the master key (let's call it *MK*) as follows: *SK* = *kdf*(*MK*, *ANonce*, *BNonce*).
+In the above protocol, one problem was that a person-in-the-middle could just obtain the *ANonce* and the *BNonce* and then compute the session key herself. We could mitigate this problem by requiring that Alice and Bob have shared a secret (a permanent "master key") before they run the protocol (we just assume there is some master key that has been shared). When they compute the session key, they then incorporate the master key (let's call it *MK*) as follows: *SK* = *kdf*(*MK*, *ANonce*, *BNonce*).
 
 ### Exercises
 
