@@ -8,7 +8,7 @@ Your goal is to model a simple protocol (which has several flaws) in Tamarin and
 
 There are two parties, Alice and Bob, who want to establish a session key in order to communicate with each other secretly. To do so, they proceed as follows:
 
-1. Alice computes a nonce and sends it to Bob (A -> B: ANonce)
+1. Alice computes a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) and sends it to Bob (A -> B: ANonce)
 2. When Bob receives Alice's nonce, he computes his own nonce and sends it to Alice. (B -> A: BNonce)
 3. When Alice receives Bob's nonce, she does two things:
    - She installs a session key SK, which she computes from ANonce and BNonce by applying a key derivation function to them (i.e., SK = kdf(ANonce, BNonce)). 
