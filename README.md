@@ -12,7 +12,7 @@ There are two parties, Alice and Bob, who want to establish a session key in ord
 2. When Bob receives Alice's nonce, he computes his own nonce and sends it to Alice. (*B* -> *A*: *BNonce*)
 3. When Alice receives Bob's nonce, she does two things:
    - She installs a session key *SK*, which she computes from *ANonce* and *BNonce* by applying a key derivation function to them (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
-   - Once the session key is installed, she sends a message with the string "ACK" to Bob (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully.
+   - Once the session key is installed, she sends a message with the string "ACK" to Bob (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on her side.
 4. When Bob receives the "ACK" message, he also computes and installs the session key *SK* = *kdf*(*ANonce*, *BNonce*) and switches to a 'DONE' state.
 
 ### Exercises
