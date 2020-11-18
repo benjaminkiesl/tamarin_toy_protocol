@@ -11,8 +11,8 @@ There are two parties, Alice and Bob, who want to establish a session key in ord
 1. Alice computes a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) and sends it to Bob (*A* -> *B*: *ANonce*)
 2. When Bob receives Alice's nonce, he computes his own nonce and sends it to Alice. (*B* -> *A*: *BNonce*)
 3. When Alice receives Bob's nonce, she does two things:
-   - She installs a session key *SK*, which she computes from *ANonce* and *BNonce* by applying a key derivation function to them (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
-   - Once the session key is installed, she sends a message with the string "ACK" to Bob (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on her side.
+   1. She installs a session key *SK*, which she computes from *ANonce* and *BNonce* by applying a key derivation function to them (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
+   2. Once the session key is installed, she sends a message with the string "ACK" to Bob (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on her side.
 4. When Bob receives the "ACK" message, he also computes and installs the session key *SK* = *kdf*(*ANonce*, *BNonce*) and switches to a 'DONE' state.
 
 ### Exercises
@@ -45,7 +45,7 @@ Possible solution: [toy_protocol_2_master_key.spthy](toy_protocol_2_master_key.s
 
 ## Extension: Message Authentication Code
 
-In the previous version of our protocol, the problem was that an adversary could send the "ACK" message to Bob and thus trick Bob into believing that Alice has successfully installed the session key. To avoid this, we can require Alice to compute a message authentication code (with the session key *SK*) for the "ACK" message and send this MAC to Bob together with the message. When Bob receives the message and the MAC, he then first verifies the MAC before switching to the 'DONE' state. This should prevent an adversary from forging the "ACK" message.
+In the previous version of our protocol, the problem was that an adversary could send the "ACK" message to Bob and thus trick Bob into believing that Alice has successfully installed the session key. To avoid this, we can require Alice to compute a [message authentication code](https://en.wikipedia.org/wiki/Message_authentication_code) (with the session key *SK*) for the "ACK" message and send this MAC to Bob together with the message. When Bob receives the message and the MAC, he then first verifies the MAC before switching to the 'DONE' state. This should prevent an adversary from forging the "ACK" message.
 
 ### Exercises
 
