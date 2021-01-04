@@ -17,11 +17,11 @@ There are two parties, Alice and Bob, who want to establish a session key in ord
 
 ### Exercises
 
-Can you model this protocol in Tamarin? Note that there is not "the one perfect solution" but that the protocol can be modeled in several different ways.
+1. Can you model this protocol in Tamarin? Note that there is not "the one perfect solution" but that the protocol can be modeled in several different ways.
 
-Once you have a model of the protocol, can you formulate a lemma ("exists-trace") in Tamarin that says that both Alice and Bob can reach the 'DONE' state?
+2. Once you have a model of the protocol, can you formulate a lemma ("exists-trace") in Tamarin that says that both Alice and Bob can reach the 'DONE' state?
 
-Can you formulate a lemma in Tamarin that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this statement? If not, what's the problem?
+3. Can you formulate a lemma in Tamarin that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this statement? If not, what's the problem?
 
 Possible solution: [toy_protocol_1.spthy](toy_protocol_1.spthy)
 
@@ -31,15 +31,15 @@ In the above protocol, one problem was that a person-in-the-middle could just ob
 
 ### Exercises
 
-Can you modify the initial model to incorporate the master-key mechanism?
+1. Can you modify the initial model to incorporate the master-key mechanism?
 
-Can you again formulate a lemma that says that both Alice and Bob can reach the 'DONE' state?
+2. Can you again formulate a lemma that says that both Alice and Bob can reach the 'DONE' state?
 
-Can you again formulate a lemma that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this lemma?
+3. Can you again formulate a lemma that says "When Bob is in the 'DONE' state, an adversary cannot know the session key"? Can Tamarin prove this lemma?
 
-Can you also formulate and prove a lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"?
+4. Can you also formulate and prove a lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"?
 
-Is it possible that Bob reaches the 'DONE' state but Alice does not? (Maybe Tamarin can help with answering this question!?) If so, why is that? What could we do to deal with this?
+5. Is it possible that Bob reaches the 'DONE' state but Alice does not? (Maybe Tamarin can help with answering this question!?) If so, why is that? What could we do to deal with this?
 
 Possible solution: [toy_protocol_2_master_key.spthy](toy_protocol_2_master_key.spthy)
 
@@ -49,9 +49,9 @@ In the previous version of our protocol, the problem was that an adversary could
 
 ### Exercises
 
-Can you incorporate this message-authentication mechanism into the Tamarin model?
+1. Can you incorporate this message-authentication mechanism into the Tamarin model?
 
-Can you now formulate and prove the lemma that says "When Bob reaches the 'DONE' state, Alice must have reached the 'DONE' state too (even before Bob)"?
+2. Can you now formulate and prove the lemma that says "When Bob reaches the 'DONE' state, Alice must have reached the 'DONE' state too (even before Bob)"?
 
 Possible solution: [toy_protocol_3_mac.spthy](toy_protocol_3_mac.spthy)
 
@@ -61,8 +61,8 @@ In our current protocol, Alice and Bob will only send their nonces (and the "ACK
 
 ### Exercises
 
-Can you incorporate this into the Tamarin model?
+1. Can you incorporate this retransmission mechanism into the Tamarin model?
 
-What happens now if you want to prove the lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"? Why might Tamarin fail to terminate? How could you help Tamarin prove the lemma?
+2. What happens now if you want to prove the lemma that says "When Alice is in the 'DONE' state, an adversary cannot know the session key"? Why might Tamarin fail to terminate? How could you help Tamarin prove the lemma?
 
 Possible solution: [toy_protocol_4_resend_anonce.spthy](toy_protocol_4_resend_anonce.spthy)
