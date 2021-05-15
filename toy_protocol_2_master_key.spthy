@@ -57,6 +57,10 @@ lemma successful_run: exists-trace
         AInstallsKey(bID, MK, ANonce, BNonce, SK) @ i &
         BInstallsKey(aID, MK, ANonce, BNonce, SK) @ j"
 
+lemma a_communicates_with_herself: exists-trace
+    "Ex aID MK ANonce SK #i.
+        AInstallsKey(aID, MK, ANonce, ANonce, SK) @ i"
+
 lemma sk_secret_a:
     "All aID MK ANonce BNonce SK #i. 
         AInstallsKey(aID, MK, ANonce, BNonce, SK) @ i 
@@ -72,6 +76,7 @@ lemma if_b_finishes_a_has_finished_too:
         BInstallsKey(bID, MK, ANonce, BNonce, SK) @ i 
             ==> (Ex aID #j. AInstallsKey(aID, MK, ANonce, BNonce, SK) @ j
                  & j < i)"
+
 
 // END Statements
 
