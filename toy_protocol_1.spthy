@@ -54,12 +54,8 @@ rule BReceiveAckInstallKey [color=#b5f5f7]:
 
 lemma successful_run: exists-trace
     "Ex bID aID ANonce BNonce SK #i #j.
-        AInstallsKey(aID, ANonce, BNonce, SK) @ i &
-        BInstallsKey(bID, ANonce, BNonce, SK) @ j"
-
-lemma a_communicates_with_herself: exists-trace
-    "Ex aID ANonce SK #i.
-        AInstallsKey(aID, ANonce, ANonce, SK) @ i"
+        AInstallsKey(bID, ANonce, BNonce, SK) @ i &
+        BInstallsKey(aID, ANonce, BNonce, SK) @ j"
 
 lemma sk_secret_a:
     "All aID ANonce BNonce SK #i. 
