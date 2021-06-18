@@ -6,7 +6,7 @@ This repository contains a few increasingly complex exercises that should help y
 
 Your goal is to model a simple protocol (which has several flaws) in Tamarin and then step-by-step improve the protocol to deal with its flaws. The initial protocol is as follows:
 
-There are two parties, Alex and Blake, who want to establish a [session key](https://en.wikipedia.org/wiki/Session_key) (that they can then use to encrypt messages and communicate with each other secretly). To do so, they proceed as follows:
+There are two parties, Alex and Blake, who want to establish a [session key](https://en.wikipedia.org/wiki/Session_key) (which they can then use to encrypt messages and communicate with each other secretly). To do so, they proceed as follows:
 
 1. Alex computes a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) and sends it to Blake. (*A* -> *B*: *ANonce*)
 2. When Blake receives Alex's nonce, he computes his own nonce and sends it to Alex. (*B* -> *A*: *BNonce*)
