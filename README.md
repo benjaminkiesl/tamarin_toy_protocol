@@ -13,7 +13,7 @@ There are two parties, Alex and Blake, who want to establish a [session key](htt
 3. When Alex receives Blake's nonce, Alex does two things:
    1. Alex installs a session key *SK*, which is derived from *ANonce* and *BNonce* by applying a [key derivation function](https://en.wikipedia.org/wiki/Key_derivation_function) (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
    2. Once the session key is installed, Alex sends a message with the string "ACK" to Blake (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on Alex's side.
-4. When Blake receives the "ACK" message, Blake also computes and installs the session key *SK* = *kdf*(*ANonce*, *BNonce*) and switches to a 'DONE' state.
+4. When Blake receives the "ACK" message, Blake also computes the session key *SK* = *kdf*(*ANonce*, *BNonce*), installs it and switches to a 'DONE' state.
 
 ### Exercises
 
