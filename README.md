@@ -9,11 +9,11 @@ Your goal is to model a simple protocol (which has several flaws) in Tamarin and
 There are two parties, Alex and Blake, who want to establish a [session key](https://en.wikipedia.org/wiki/Session_key) (which they can then use to encrypt messages and communicate with each other secretly). To do so, they proceed as follows:
 
 1. Alex computes a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) and sends it to Blake. (*A* -> *B*: *ANonce*)
-2. When Blake receives Alex's nonce, he computes his own nonce and sends it to Alex. (*B* -> *A*: *BNonce*)
-3. When Alex receives Blake's nonce, she does two things:
-   1. She installs a session key *SK*, which she computes from *ANonce* and *BNonce* by applying a [key derivation function](https://en.wikipedia.org/wiki/Key_derivation_function) (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
-   2. Once the session key is installed, she sends a message with the string "ACK" to Blake (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on her side.
-4. When Blake receives the "ACK" message, he also computes and installs the session key *SK* = *kdf*(*ANonce*, *BNonce*) and switches to a 'DONE' state.
+2. When Blake receives Alex's nonce, Blake computes their own nonce and sends it to Alex. (*B* -> *A*: *BNonce*)
+3. When Alex receives Blake's nonce, Alex does two things:
+   1. Alex installs a session key *SK*, which is derived from *ANonce* and *BNonce* by applying a [key derivation function](https://en.wikipedia.org/wiki/Key_derivation_function) (i.e., *SK* = *kdf*(*ANonce*, *BNonce*)). 
+   2. Once the session key is installed, Alex sends a message with the string "ACK" to Blake (*A* -> *B*: "ACK") and switches to a 'DONE' state to indicate that the protocol has been executed successfully on Alex's side.
+4. When Blake receives the "ACK" message, Blake also computes and installs the session key *SK* = *kdf*(*ANonce*, *BNonce*) and switches to a 'DONE' state.
 
 ### Exercises
 
@@ -27,7 +27,7 @@ Possible solution: [toy_protocol_1.spthy](toy_protocol_1.spthy)
 
 ## Extension: Preshared Master Key
 
-In the above protocol, one problem was that a [person-in-the-middle attacker](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) could just obtain the *ANonce* and the *BNonce* and then compute the session key herself. We could mitigate this problem by requiring that Alex and Blake have shared a secret (a permanent "master key") before they run the protocol (we just *assume* there is some master key that has been shared; in practice, this master key could be a simple password that Alex and Blake agreed on before running the protocol). When they compute the session key, they then incorporate the master key (let's call it *MK*) as follows: *SK* = *kdf*(*MK*, *ANonce*, *BNonce*).
+In the above protocol, one problem was that a [person-in-the-middle attacker](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) could just obtain the *ANonce* and the *BNonce* and then use them to compute the session key. We could mitigate this problem by requiring that Alex and Blake must have shared a secret (a permanent "master key") before they run the protocol (we just *assume* there is some master key that they have shared; in practice, this master key could be a simple password that Alex and Blake agreed on before running the protocol). When they compute the session key, they then incorporate the master key (let's call it *MK*) as follows: *SK* = *kdf*(*MK*, *ANonce*, *BNonce*).
 
 ### Exercises
 
@@ -45,7 +45,7 @@ Possible solution: [toy_protocol_2_master_key.spthy](toy_protocol_2_master_key.s
 
 ## Extension: Message Authentication Code
 
-In the previous version of our protocol, the problem was that an attacker could send the "ACK" message to Blake and thus trick Blake into believing that Alex has successfully installed the session key. To avoid this, we can require Alex to compute a [message authentication code](https://en.wikipedia.org/wiki/Message_authentication_code) (with the session key *SK*) for the "ACK" message and send this MAC to Blake together with the message. When Blake receives the message and the MAC, he then first verifies the MAC before switching to the 'DONE' state. This should prevent an attacker from forging the "ACK" message.
+In the previous version of our protocol, the problem was that an attacker could send the "ACK" message to Blake and thus trick Blake into believing that Alex has successfully installed the session key. To avoid this, we can require Alex to compute a [message authentication code](https://en.wikipedia.org/wiki/Message_authentication_code) (with the session key *SK*) for the "ACK" message and send this MAC to Blake together with the message. When Blake receives the message and the MAC, Blake then first verifies the MAC before switching to the 'DONE' state. This should prevent an attacker from forging the "ACK" message.
 
 ### Exercises
 
@@ -57,7 +57,7 @@ Possible solution: [toy_protocol_3_mac.spthy](toy_protocol_3_mac.spthy)
 
 ## Extended Protocol: Resending Messages
 
-In our current protocol, Alex and Blake will only send their nonces (and the "ACK" message) once. This could cause problems when messages get lost. To deal with this, we allow Alex to send her nonce again (arbitrarily many times) in case she hasn't received a response from Blake.
+In our current protocol, Alex and Blake will only send their nonces (and the "ACK" message) once. This could cause problems when messages get lost. To deal with this, we allow Alex to send their nonce (*ANonce*) again (arbitrarily many times) in case they haven't received a response from Blake.
 
 ### Exercises
 
