@@ -3,7 +3,7 @@
 theory toy_protocol
 begin
 
-functions: KDF/1
+functions: kdf/3
 builtins: symmetric-encryption
 
 // BEGIN Rules
@@ -23,7 +23,7 @@ rule ASendNonce [color=#ffdea6]:
 
 rule AReceiveNonceInstallKey [color=#ffdea6]:
     let 
-        SK = KDF(~MK, ~ANonce, BNonce)
+        SK = kdf(~MK, ~ANonce, BNonce)
     in
     [ AState(~aID, 'SENT_NONCE', <~MK, ~ANonce>)
     , In(BNonce) ]
@@ -41,7 +41,7 @@ rule BReceiveNonceSendNonce [color=#b5f5f7]:
 
 rule BReceiveAckInstallKey [color=#b5f5f7]:
     let
-        SK = KDF(~MK, ANonce, ~BNonce)
+        SK = kdf(~MK, ANonce, ~BNonce)
     in
     [ BState(~bID, 'SENT_NONCE', <~MK, ANonce, ~BNonce>)
     , In('ACK') ]

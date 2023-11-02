@@ -3,7 +3,7 @@
 theory toy_protocol
 begin
 
-functions: kdf/1, mac/2
+functions: kdf/3, mac/2
 builtins: symmetric-encryption
 
 // BEGIN Rules
